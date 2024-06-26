@@ -6,6 +6,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const items = [
   UserOutlined,
@@ -66,7 +67,7 @@ const MainLayout = () => {
               minHeight: 360,
             }}
           >
-            <h1>The main content should place there.</h1>
+            <Outlet />
           </div>
         </Content>
         <Footer
