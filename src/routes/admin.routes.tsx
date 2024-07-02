@@ -5,11 +5,6 @@ import CreateFaculty from '../pages/admin/CreateFaculty';
 import CreateStudent from '../pages/admin/CreateStudent';
 import { NavLink } from 'react-router-dom';
 
-type IRoute = {
-  path: string;
-  element: ReactNode;
-};
-
 type ISidebarItem = {
   key: string;
   label: ReactNode;
@@ -39,7 +34,7 @@ type ISidebarItem = {
 //   },
 // ];
 
-const adminPaths = [
+export const adminPaths = [
   {
     name: 'Dashboard',
     path: 'dashboard',
@@ -72,25 +67,25 @@ const adminPaths = [
   },
 ];
 
-export const adminRoutes = adminPaths.reduce((acc: IRoute[], item) => {
-  if (item.path && item.element) {
-    acc.push({
-      path: item.path,
-      element: item.element,
-    });
-  }
+// export const adminRoutes = adminPaths.reduce((acc: IRoute[], item) => {
+//   if (item.path && item.element) {
+//     acc.push({
+//       path: item.path,
+//       element: item.element,
+//     });
+//   }
 
-  if (item.children) {
-    item.children.forEach(child => {
-      acc.push({
-        path: child.path,
-        element: child.element,
-      });
-    });
-  }
+//   if (item.children) {
+//     item.children.forEach(child => {
+//       acc.push({
+//         path: child.path,
+//         element: child.element,
+//       });
+//     });
+//   }
 
-  return acc;
-}, []);
+//   return acc;
+// }, []);
 
 export const adminSidebarItems = adminPaths.reduce(
   (acc: ISidebarItem[], item) => {
