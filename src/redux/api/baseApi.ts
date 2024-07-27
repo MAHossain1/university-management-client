@@ -4,7 +4,7 @@ export const baseApi = createApi({
   reducerPath: 'baseApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:5000/api/v1',
-    credentials: 'include',
+    credentials: 'include', //to set refreshToken
   }),
   endpoints: () => ({}),
 });
