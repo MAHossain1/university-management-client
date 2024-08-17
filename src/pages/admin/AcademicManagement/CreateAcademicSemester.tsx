@@ -1,12 +1,14 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Col, Flex } from 'antd';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import PHForm from '../../../components/form/PHForm';
 import PHSelect from '../../../components/form/PHSelect';
 import { monthOption } from '../../../constants/global';
 import { semesterOption } from '../../../constants/semester';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { academicSemesterSchema } from '../../../schemas/academicManagement.schema';
+import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement.api';
+import { toast } from 'sonner';
+import { TResponse } from '../../../types/global';
 
 const currentYear = new Date().getFullYear();
 const yearOptions = [0, 1, 2, 3, 4, 5].map(number => ({
@@ -15,7 +17,11 @@ const yearOptions = [0, 1, 2, 3, 4, 5].map(number => ({
 }));
 
 const CreateAcademicSemester = () => {
-  const onSubmit: SubmitHandler<FieldValues> = data => {
+  const [addAcademicSemester] = useAddAcademicSemesterMutation();
+
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
+    const toastId = toast.loading('Creating semester...');
+
     const name = semesterOption[Number(data.name) - 1].label;
 
     const semesterData = {
@@ -26,7 +32,19 @@ const CreateAcademicSemester = () => {
       endMonth: data.endMonth,
     };
 
-    console.log(semesterData);
+    try {
+      const res = (await addAcademicSemester(semesterData)) as TResponse;
+      console.log(res);
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success('Successfully created the semester!', { id: toastId });
+      }
+    } catch (error) {
+      toast.error('Something went wrong!', { id: toastId });
+    }
+
+    // console.log(semesterData);
   };
 
   return (
