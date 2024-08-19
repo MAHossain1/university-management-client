@@ -3,20 +3,21 @@ import { useGetAcademicFacultiesQuery } from '../../../redux/features/admin/acad
 import { TAcademicFaculty } from '../../../types/academicManagement.type';
 
 export type TTableDataForAFaculty = Pick<TAcademicFaculty, 'name'>;
+type TAcademicFacultyProps = {
+  _id: string;
+  name: string;
+};
 
 const AcademicFaculty = () => {
-  const {
-    data: academicFacultyData,
-    isLoading,
-    isFetching,
-  } = useGetAcademicFacultiesQuery(undefined);
+  const { data: academicFacultyData, isFetching } =
+    useGetAcademicFacultiesQuery(undefined);
 
-  console.log(academicFacultyData);
-
-  const tableData = academicFacultyData?.data?.map(({ _id, name }) => ({
-    key: _id,
-    name,
-  }));
+  const tableData = academicFacultyData?.data?.map(
+    ({ _id, name }: TAcademicFacultyProps) => ({
+      key: _id,
+      name,
+    })
+  );
 
   const columns: TableColumnsType<TTableDataForAFaculty> = [
     {

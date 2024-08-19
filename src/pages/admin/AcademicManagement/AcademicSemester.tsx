@@ -9,6 +9,14 @@ export type TTableData = Pick<
   'name' | 'year' | 'startMonth' | 'endMonth'
 >;
 
+type TAcademicSemesterProps = {
+  _id: string;
+  name: string;
+  year: string;
+  startMonth: string;
+  endMonth: string;
+};
+
 const AcademicSemester = () => {
   const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
 
@@ -21,7 +29,7 @@ const AcademicSemester = () => {
   // console.log(semesterData);
 
   const tableData = semesterData?.data?.map(
-    ({ _id, name, year, startMonth, endMonth }) => ({
+    ({ _id, name, year, startMonth, endMonth }: TAcademicSemesterProps) => ({
       key: _id,
       name,
       year,
