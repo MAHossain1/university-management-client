@@ -1,7 +1,7 @@
 import { Button, Col, Divider, Form, Input, Row } from 'antd';
 import PHInput from '../../../components/form/PHInput';
 import PHForm from '../../../components/form/PHForm';
-import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { Controller, FieldValues, SubmitHandler } from 'react-hook-form';
 import PHSelect from '../../../components/form/PHSelect';
 import { bloodGroupOptions, genderOptions } from '../../../constants/global';
 import PHDatePicker from '../../../components/form/PHDatePicker';
@@ -81,6 +81,7 @@ const CreateStudent = () => {
     const formData = new FormData();
 
     formData.append('data', JSON.stringify(studentData));
+    formData.append('file', data.image);
 
     addStudent(formData);
 
@@ -116,7 +117,7 @@ const CreateStudent = () => {
                 label="Blood group"
               />
             </Col>
-            {/* <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <Controller
                 name="image"
                 render={({ field: { onChange, value, ...field } }) => (
@@ -130,7 +131,7 @@ const CreateStudent = () => {
                   </Form.Item>
                 )}
               />
-            </Col> */}
+            </Col>
           </Row>
           <Divider>Contact Info.</Divider>
           <Row gutter={8}>
